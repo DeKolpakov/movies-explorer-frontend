@@ -1,0 +1,29 @@
+.burger-button {
+  width: 44px;
+  height: 44px;
+  display: none;
+  background-image: url('../../images/burger-menu-icon.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 0 30px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .burger-button {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .burger-button {
+    width: 40px;
+    height: 43px;
+    background-image: url('../../images/burger-menu-icon-S.svg');
+    margin: 0 14px 0 0;
+  }
+}

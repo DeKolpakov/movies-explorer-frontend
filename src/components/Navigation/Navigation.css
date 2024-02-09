@@ -1,0 +1,35 @@
+.navigation {
+  display: flex;
+
+  margin: 0 auto 0 auto;
+  padding: 0;
+}
+
+.navigation__link {
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  text-decoration: none;
+  transition: 0.8s;
+  margin: 0 18px 0 auto;
+  padding: 0;
+}
+
+.navigation__link:last-of-type {
+  margin: 0;
+}
+
+.navigation__link:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
+}

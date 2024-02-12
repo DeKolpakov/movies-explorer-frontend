@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 /* import Button from '../Button/Button'; */
 
-function Profile({name,email}) {
+function Profile({name, email}) {
   return (
     <>
       <Header />
@@ -15,11 +15,11 @@ function Profile({name,email}) {
           <label className='profile__form-input-label' for='profile-name'>
             Имя
           </label>
-          <input className='profile__form-input' id='profile-name' name='profile-name' type='text' value={name} />
+          <input className='profile__form-input' id='profile-name' name='profile-name' type='text' value={name} required />
           <label className='profile__form-input-label' for='profile-email'>
             E-mail
           </label>
-          <input className='profile__form-input' id='profile-email' name='profile-email' type='text' value={email}/>
+          <input className='profile__form-input' id='profile-email' name='profile-email' type='text' value={email} required />
         </form>
         <span className='profile__error'></span>
 

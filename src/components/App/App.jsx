@@ -7,7 +7,7 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
-import NotFoundPage from "../NotFoundPage/NotFoundPage"
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
 
       <Route path='/savedmovies' element={<SavedMovies />} />
 
-      <Route path='/profile' element={<Profile name={'Виталий'} email={'vitalik@ya.ru'}/>} />
+      <Route path='/profile' element={<Profile name={'Виталий'} email={'vitalik@ya.ru'} />} />
 
       <Route path='/signup' element={<Register />} />
 

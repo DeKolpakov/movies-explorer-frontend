@@ -2,7 +2,7 @@ import React from 'react';
 
 function Button({buttonName, buttonId}) {
   return (
-    <button className='button button_invalid' id={buttonId} type='submit' disabled>
+    <button className='button button_active' id={buttonId} type='submit' disabled>
       {buttonName}
     </button>
   );

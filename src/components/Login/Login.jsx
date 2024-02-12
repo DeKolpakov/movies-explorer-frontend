@@ -7,7 +7,7 @@ function Login() {
   return (
     <section className='login'>
       <Link to='/'>
-        <img src={logo} alt='Логотип' className='logo login__logo' />
+        <img src={logo} alt='Логотип' className='logo logo__login' />
       </Link>
 
       <h1 className='login__title'>Рады видеть!</h1>
@@ -18,8 +18,8 @@ function Login() {
 
         <p className='login__input-name'>Пароль</p>
         <input className='login__input' id='password' name='password' type='text' required />
-        <span className='login__span login__span_error' id='password_error'></span>
 
+        <span className='login__span login__span_error' id='login__error'></span>
         <Button buttonId='login__button' buttonName='Войти' />
       </form>
       <div className='login__footer'>

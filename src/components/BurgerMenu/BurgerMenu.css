@@ -1,0 +1,133 @@
+.burger-menu {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 0;
+}
+
+.burger-menu_closed {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.burger-menu_opened {
+  visibility: visible;
+  transition: 0.6s;
+}
+
+.burger-menu__close-button {
+  width: 22px;
+  height: 22px;
+  background-image: url('../../images/close-button.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: transparent;
+  position: absolute;
+  top: 23px;
+  right: 23px;
+}
+
+.burger-menu__close-button:hover {
+  opacity: 0.6;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.burger-menu__container {
+  width: 520px;
+  height: 100%;
+  background-color: rgba(32, 32, 32, 1);
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+}
+
+.burger-menu__link {
+  display: flex;
+  flex-direction: column;
+  margin: 159px auto 0 auto;
+}
+
+.burger-menu__link_item {
+  border: 2px solid transparent;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  margin: 0 auto 0 auto;
+  padding: 0 0 7px 0;
+}
+
+.burger-menu__link_item:hover {
+  border-bottom: 2px #fff solid;
+  opacity: 0.6;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.burger-menu__link_item:nth-of-type(1) {
+  width: 75px;
+}
+.burger-menu__link_item:nth-of-type(2) {
+  margin-top: 28px;
+  width: 75px;
+}
+.burger-menu__link_item:nth-of-type(3) {
+  margin-top: 28px;
+}
+
+
+@media screen and (max-width: 600px) {
+  .burger-menu__close-button {
+    top: 13px;
+    right: 13px;
+  }
+  
+  .burger-menu__container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .burger-menu__link {
+    margin: 144px auto 0 auto;
+  }
+  
+  .burger-menu__link_item {
+    border: 2px solid transparent;
+    font-size: 18px;
+    margin: 0 auto 0 auto;
+    padding: 0 0 7px 0;
+  }
+  
+  
+  .burger-menu__link_item:nth-of-type(1) {
+    width: 75px;
+  }
+  .burger-menu__link_item:nth-of-type(2) {
+    margin-top: 24px;
+    width: 75px;
+  }
+  .burger-menu__link_item:nth-of-type(3) {
+    margin-top: 24px;
+  }
+}

@@ -1,0 +1,43 @@
+.account-button {
+  width: 100px;
+  height: 32px;
+  border-radius: 20px;
+  background: #313131;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  cursor: pointer;
+  transition: 0.8s;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.account-button:hover {
+  cursor: pointer;
+  transition: 0.8s;
+  opacity: 0.7;
+}
+
+.account-button__header {
+  margin: 21px 70px 21px 8px;
+}
+
+.account-button__burger-menu {
+  margin: auto auto 90px auto;
+}
+
+@media screen and (max-width: 768px) {
+  .account-button__header {
+    display: none;
+  }
+  .account-button__burger-menu {
+    margin: auto auto 46px auto;
+  }
+}

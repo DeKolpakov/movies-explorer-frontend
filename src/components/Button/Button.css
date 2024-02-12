@@ -1,0 +1,40 @@
+.button {
+  width: 396px;
+  height: 45px;
+  border-radius: 3px;
+  text-align: center;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 0 auto 0 auto;
+  padding: 0;
+}
+
+.button:hover {
+  opacity: 0.6;
+}
+
+.button_active {
+  background: #4285f4;
+  color: #fff;
+
+}
+
+.button_inactive {
+  background: #f8f8f8;
+  color: #c2c2c2;
+
+}
+
+@media screen and (max-width: 600px) {
+  .button {
+    width: 260px;
+    font-size: 12px;
+  }
+}

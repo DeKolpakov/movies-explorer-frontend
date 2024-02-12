@@ -60,6 +60,10 @@
   margin: 10px auto 0 auto;
 }
 
+.login__input_novalide {
+  color: #EE3465;
+}
+
 .login__span {
   width: 396px;
   height: 13px;

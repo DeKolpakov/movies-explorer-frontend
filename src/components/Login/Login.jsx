@@ -1,39 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
+import useFormValidator from '../../utils/useFormValidator';
 
-import validator from '../../utils/validator';
+function Login({handleLogin, loginMessage, loginError}) {
+  const validation = useFormValidator();
 
-function Login() {
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    const {name, value} = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    handleLogin(validation.values);
+    //console.log(validation.values);
+  }
 
-    validator.showMessageFor(name);
-  };
+  const isFormValid = validation.isValid;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (validator.allValid()) {
-      console.log('Данные отправлены:', state);
-    } else {
-      validator.showMessages();
-      setState((prevState) => ({...prevState}));
-    }
-  };
-
-  const isFormValid = validator.allValid();
   return (
     <section className='login'>
       <Link to='/'>
@@ -44,22 +25,32 @@ function Login() {
 
       <form className='login__form' id='login__form' name='login__form' onSubmit={handleSubmit} noValidate>
         <p className='login__input-name'>E-mail</p>
-        <input className='login__input' id='email' name='email' type='email' value={state.email} onChange={handleChange} required />
+        <input
+          className='login__input'
+          id='email'
+          name='email'
+          type='email'
+          value={validation.values.email ?? ''}
+          onChange={(e) => validation.handleChange(e)}
+          minLength='2'
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+          required
+        />
 
         <p className='login__input-name'>Пароль</p>
         <input
-          className={`login__input ${!validator.fieldValid('password') ? 'login__input_novalide' : ''}`}
+          className={`login__input ${!isFormValid ? 'login__input_novalide' : ''}`}
           id='password'
           name='password'
           type='password'
-          value={state.password}
-          onChange={handleChange}
+          value={validation.values.password ?? ''}
+          onChange={(e) => validation.handleChange(e)}
+          minLength='8'
           required
         />
 
         <span className='login__span login__span_error' id='login__error'>
-          {validator.message('email', state.email, 'required|email')}
-          {validator.message('password', state.password, 'required|min:6')}
+          {[validation.errors.email, validation.errors.password, loginMessage, loginError].find(Boolean)}
         </span>
 
         <Button

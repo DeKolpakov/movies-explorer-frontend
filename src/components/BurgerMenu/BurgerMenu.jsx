@@ -1,11 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-function BurgerMenu() {
+function BurgerMenu({isBurgerMenuOpen, onClose}) {
+  
   return (
-    <div className='burger-menu burger-menu_closed'>
+    <div className={`burger-menu ${!isBurgerMenuOpen ? "burger-menu_closed" : ""}`}>
       <div className='burger-menu__container'>
-        <div className='burger-menu__close-button'></div>
+        <button className='burger-menu__close-button' onClick={onClose} />
         <div className='burger-menu__link'>
           <Link className='burger-menu__link_item' to='/'>
             Главная

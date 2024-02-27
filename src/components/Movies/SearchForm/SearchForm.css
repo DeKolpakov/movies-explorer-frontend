@@ -50,6 +50,18 @@
   padding: 0;
 }
 
+.search-form__span{
+  color: #ee3465;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: inline-block;
+  margin: 10px auto 70px 0;
+  padding: 0;
+}
+
 .search-form__button {
   min-width: 44px;
   min-height: 44px;

@@ -142,10 +142,10 @@ function App() {
 
   function handleLogout() {
     localStorage.clear();
-    setIsLoggedIn(false);
-    navigate('/');
     document.cookie = 'jwt; expires=Thu, 01 Jan 1970 00:00:00 UTC';
     setCurrentUser({name: '', email: '', _id: ''});
+    setIsLoggedIn(false);
+    navigate('/');
   }
 
   return (

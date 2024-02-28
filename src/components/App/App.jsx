@@ -32,44 +32,32 @@ function App() {
   useEffect(() => {
     const userId = localStorage.getItem('_id');
     if (userId) {
-      mainApi
-        .getUserInfo()
-        .then((res) => {
-          setCurrentUser({
-            name: res.name,
-            email: res.email,
-            _id: res._id,
-          });
-          setIsLoggedIn(true);
-        })
-        .catch((err) => {
-          console.log(`Ошибка получения данных: ${err.message}`);
+      Promise.all([
+        mainApi.getUserInfo(),
+        auth.checkToken()
+      ])
+      .then(([userInfo, tokenInfo]) => {
+        setCurrentUser({
+          name: userInfo.name,
+          email: userInfo.email,
+          _id: userInfo._id,
         });
+        setIsLoggedIn(true);
+        navigate('/movies');
+      })
+      .catch((err) => {
+        const [getUserInfoError, checkTokenError] = err;
+        if (getUserInfoError) {
+          console.log(`Ошибка получения данных: ${getUserInfoError.message}`);
+        }
+        if (checkTokenError) {
+          console.log(`Ошибка верификации токена, ${checkTokenError.message}`);
+        }
+      });
     }
-  }, []);
-
-  useEffect(() => {
-    const userId = localStorage.getItem('_id');
-    if (userId) {
-      auth
-        .checkToken(userId)
-        .then((res) => {
-          setCurrentUser({
-            name: res.name,
-            email: res.email,
-            _id: res._id,
-          });
-          setIsLoggedIn(true);
-          navigate('/movies');
-        })
-        .catch((err) => {
-          console.log(`Ошибка верификации токена, ${err.message}`);
-        });
-    }
-  }, []);
+  }, [isLoggedIn]);
 
   function handleLogin({email, password}) {
-    //console.log(email, password);
     auth
       .authorize(email, password)
       .then((res) => {
@@ -98,12 +86,17 @@ function App() {
   }
 
   function handleRegister({name, email, password}) {
-    //console.log(name, email, password);
     auth
       .register(name, email, password)
       .then((res) => {
         if (res) {
-          handleLogin({email, password});
+          localStorage.setItem('_id', res._id);
+          setIsLoggedIn(true);
+          setCurrentUser({
+            name: res.name,
+            email: res.email,
+            _id: res._id,
+          });
           setRegisterMessage('Успешная регистрация!');
           setTimeout(() => {
             setRegisterMessage('');
@@ -174,13 +167,25 @@ function App() {
         <Route
           path='/signup'
           element={
-            <Register handleRegister={handleRegister} registerMessage={registerMessage} registerError={registerError} />
+            <Register
+              isLoggedIn={isLoggedIn}
+              handleRegister={handleRegister}
+              registerMessage={registerMessage}
+              registerError={registerError}
+            />
           }
         />
 
         <Route
           path='/signin'
-          element={<Login handleLogin={handleLogin} loginMessage={loginMessage} loginError={loginError} />}
+          element={
+            <Login
+              isLoggedIn={isLoggedIn}
+              handleLogin={handleLogin}
+              loginMessage={loginMessage}
+              loginError={loginError}
+            />
+          }
         />
 
         <Route path='*' element={<NotFoundPage />} />

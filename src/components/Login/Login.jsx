@@ -10,7 +10,6 @@ function Login({handleLogin, loginMessage, loginError}) {
   function handleSubmit(e) {
     e.preventDefault();
     handleLogin(validation.values);
-    //console.log(validation.values);
   }
 
   const isFormValid = validation.isValid;
@@ -33,7 +32,7 @@ function Login({handleLogin, loginMessage, loginError}) {
           value={validation.values.email ?? ''}
           onChange={(e) => validation.handleChange(e)}
           minLength='2'
-          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+          pattern='[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
           required
         />
 

@@ -10,7 +10,6 @@ function Register({handleRegister, registerMessage, registerError}) {
   function handleSubmit(e) {
     e.preventDefault();
     handleRegister(validation.values);
-    //console.log(validation.values);
   }
 
   const isFormValid = validation.isValid;

@@ -3,38 +3,49 @@ import {useLocation} from 'react-router-dom';
 import useResize from 'use-resize';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
+import {
+  START_QUANTITI_MOVIES_L,
+  START_QUANTITI_MOVIES_M,
+  START_QUANTITI_MOVIES_S,
+  ADD_MOVIE_L,
+  ADD_MOVIE_M,
+  WIDTH_SIZE_L,
+  WIDTH_SIZE_M,
+} from '../../../utils/constants';
+
 function MoviesCardList({cards, savedCards, onCardSave, onCardDelete}) {
-  
   const {pathname} = useLocation();
   const size = useResize();
-
   const [items, setItems] = useState([]);
-  const [addMore, setAddMore] = useState(3);
-  const [startItem, setStartItem] = useState(12);
+  const [addMore, setAddMore] = useState(ADD_MOVIE_L);
+  const [startItem, setStartItem] = useState(START_QUANTITI_MOVIES_L);
 
   useEffect(() => {
-    if (size.width > 1200) {
-      setStartItem(12);
-      setAddMore(3);
-    } else if (size.width > 600) {
-      setStartItem(8);
-      setAddMore(2);
+    if (pathname === '/movies') {
+      if (size.width > WIDTH_SIZE_L) {
+        setStartItem(START_QUANTITI_MOVIES_L);
+        setAddMore(ADD_MOVIE_L);
+      } else if (size.width > WIDTH_SIZE_M) {
+        setStartItem(START_QUANTITI_MOVIES_M);
+        setAddMore(ADD_MOVIE_M);
+      } else {
+        setStartItem(START_QUANTITI_MOVIES_S);
+        setAddMore(ADD_MOVIE_M);
+      }
     } else {
-      setStartItem(5);
-      setAddMore(2);
+      setStartItem(savedCards.length);
     }
-  }, [size]);
+  }, [size, pathname, savedCards.length]);
 
   useEffect(() => {
+    const resetCards = () => {
+      setItems(cards.slice(0, startItem));
+    };
     resetCards();
-  }, [cards, size]);
-
-  function resetCards() {
-    setItems(cards.slice(0, startItem));
-  }
+  }, [size, startItem, cards]);
 
   const handleButtonMore = () => {
-    setItems([...items, ...cards.slice(items.length, items.length + addMore)]);
+    setItems((prevItems) => [...prevItems, ...cards.slice(prevItems.length, prevItems.length + addMore)]);
   };
 
   return (

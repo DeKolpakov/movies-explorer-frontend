@@ -4,7 +4,7 @@ import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
 import useFormValidator from '../../utils/useFormValidator';
 
-function Login({handleLogin, loginMessage, loginError}) {
+function Login({handleLogin, loginMessage, loginError, isLoading}) {
   const validation = useFormValidator();
 
   function handleSubmit(e) {
@@ -19,9 +19,7 @@ function Login({handleLogin, loginMessage, loginError}) {
       <Link to='/'>
         <img src={logo} alt='Логотип' className='logo logo__login' />
       </Link>
-
       <h1 className='login__title'>Рады видеть!</h1>
-
       <form className='login__form' id='login__form' name='login__form' onSubmit={handleSubmit} noValidate>
         <p className='login__input-name'>E-mail</p>
         <input
@@ -32,10 +30,9 @@ function Login({handleLogin, loginMessage, loginError}) {
           value={validation.values.email ?? ''}
           onChange={(e) => validation.handleChange(e)}
           minLength='2'
-          pattern='[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+          disabled={isLoading}
           required
         />
-
         <p className='login__input-name'>Пароль</p>
         <input
           className={`login__input ${!isFormValid ? 'login__input_novalide' : ''}`}
@@ -45,18 +42,21 @@ function Login({handleLogin, loginMessage, loginError}) {
           value={validation.values.password ?? ''}
           onChange={(e) => validation.handleChange(e)}
           minLength='8'
+          disabled={isLoading}
           required
         />
-
-        <span className='login__span login__span_error' id='login__error'>
-          {[validation.errors.email, validation.errors.password, loginMessage, loginError].find(Boolean)}
+        <span className='login__error' id='login__error'>
+          {[validation.errors.email, validation.errors.password, loginError].find(Boolean)}
         </span>
-
+        <span className='login__message' id='login__message'>
+          {loginMessage}
+        </span>
         <Button
           buttonId='login__button'
           buttonName='Войти'
           additionalClass={isFormValid ? 'button_active' : ''}
-          disabled={!isFormValid}
+          type='submit'
+          disabled={isLoading && !isFormValid}
         />
       </form>
       <div className='login__footer'>

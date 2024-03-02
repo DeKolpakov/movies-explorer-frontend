@@ -23,6 +23,11 @@ function Profile({isLoggedIn, handleLogout, handleUpdateUser, profileMessage, pr
     setIsChanged(true);
   }
 
+  function handleCancel(evt) {
+    evt.preventDefault();
+    setIsChanged(false);
+  }
+
   function handleSubmit(evt) {
     evt.preventDefault();
     handleUpdateUser(validation.values);
@@ -63,13 +68,13 @@ function Profile({isLoggedIn, handleLogout, handleUpdateUser, profileMessage, pr
             onChange={(e) => validation.handleChange(e)}
             minLength='2'
             maxLength='40'
-            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
             disabled={!isChanged}
             required
           />
           <span className='profile__error'>
-            {[profileMessage, profileError, validation.errors.name, validation.errors.email].find(Boolean)}
+            {[profileError, validation.errors.name, validation.errors.email].find(Boolean)}
           </span>
+          <span className='profile__message'>{profileMessage}</span>
           {!isChanged ? (
             <button
               type='button'
@@ -78,12 +83,22 @@ function Profile({isLoggedIn, handleLogout, handleUpdateUser, profileMessage, pr
             >
               Редактировать
             </button>
-          ) : (
+          ) : isFormValid ? (
             <Button
               buttonId='login__button'
               buttonName='Сохранить'
               additionalClass={isFormValid ? 'button_active' : ''}
+              type='submit'
               disabled={!isFormValid}
+            />
+          ) : (
+            <Button
+              buttonId='login__button'
+              buttonName='Отмена'
+              additionalClass={isFormValid ? 'button_active' : ''}
+              onClick={handleCancel}
+              type='button'
+              disabled={false}
             />
           )}
           <Link className='profile__signout-link' to='/' onClick={handleLogout}>

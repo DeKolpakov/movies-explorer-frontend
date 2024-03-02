@@ -73,6 +73,7 @@ function SavedMovies({isLoggedIn}) {
       setDisplayedCards(filteredRes);
       setNotFound(true);
     } else {
+      setNotFound(false);
       setDisplayedCards(filteredRes);
     }
   }
@@ -83,25 +84,41 @@ function SavedMovies({isLoggedIn}) {
       setDisplayedCards(filteredRes);
       setNotFound(true);
     } else {
+      setNotFound(false);
       setDisplayedCards(filteredRes);
     }
   };
 
-  const onCardDelete = async (id) => {
-    try {
+  function onCardDelete(id) {
+    mainApi
+      .delMovie(id)
+      .then(() => {
+        const displaedMoviesList = displayedCards.filter((item) => item._id !== id);
+        if (displaedMoviesList.length === 0) {
+          setNotFound(true);
+        } else {
+          setNotFound(false);
+          setDisplayedCards(displaedMoviesList);
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка ${err}`);
+      });
+    /* try {
       await mainApi.delMovie(id);
       const res = await mainApi.getMovies();
       if (res.length === 0) {
         setSavedCards(res);
         setNotFound(true);
       } else {
+        setNotFound(false)
         setSavedCards(res);
         setDisplayedCards(savedCards);
       }
     } catch (e) {
       console.error(e);
-    }
-  };
+    } */
+  }
 
   return (
     <>

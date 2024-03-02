@@ -9,11 +9,13 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import mainApi from '../../utils/MainApi';
 import movieApi from '../../utils/MovieApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import {TIME_MOVIE_SHORT} from '../../utils/constants';
 
 function Movies({isLoggedIn}) {
   const currentUser = useContext(CurrentUserContext);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [firstSearch, setFirstSearch] = useState(false);
   const [error, setError] = useState(false);
   const [savedCards, setSavedCards] = useState([]);
 
@@ -47,11 +49,6 @@ function Movies({isLoggedIn}) {
     return typeof JSON.parse(data) === 'boolean' ? JSON.parse(data) : false;
   };
 
-  function checkMovies() {
-    const data = getLocalStorageData('movies');
-    return Array.isArray(data) ? true : false;
-  }
-
   const [searchQuery, setSearchQuery] = useState(getQueryFromLocalStorage);
   const [foundCards, setFoundCards] = useState(getFoundCardsFromLocalStorage);
   const [checkboxState, setCheckboxState] = useState(getCheckboxStateFromLocalStorage);
@@ -76,7 +73,9 @@ function Movies({isLoggedIn}) {
 
   const filterMovies = (text, data) => {
     if (checkboxState) {
-      return data.filter(({nameRU, duration}) => nameRU.toLowerCase().includes(text.toLowerCase()) && duration < 30);
+      return data.filter(
+        ({nameRU, duration}) => nameRU.toLowerCase().includes(text.toLowerCase()) && duration < TIME_MOVIE_SHORT
+      );
     } else {
       return data.filter(({nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
     }
@@ -86,14 +85,16 @@ function Movies({isLoggedIn}) {
     try {
       let movies = JSON.parse(localStorage.getItem('movies'));
       if (!Array.isArray(movies)) {
-        movies = await movieApi.getMovies();
-      }
-      const filteredRes = filterMovies(searchQuery, movies);
-      setFoundCards(filteredRes);
-      if (filteredRes.length === 0) {
-        setNotFound(true);
+        setFirstSearch(true);
       } else {
-        setNotFound(false);
+        const filteredRes = filterMovies(searchQuery, movies);
+        setFoundCards(filteredRes);
+        setFirstSearch(false);
+        if (filteredRes.length === 0) {
+          setNotFound(true);
+        } else {
+          setNotFound(false);
+        }
       }
     } catch (err) {
       setError(true);
@@ -108,6 +109,11 @@ function Movies({isLoggedIn}) {
     localStorage.setItem('checkboxState', checkboxState);
     setFoundCards(filteredMovies);
     setNotFound(filteredMovies.length === 0);
+  }
+
+  function checkMovies() {
+    const movies = localStorage.getItem('movies');
+    return movies ? true : false;
   }
 
   const handleSearch = async () => {
@@ -186,6 +192,7 @@ function Movies({isLoggedIn}) {
         handleSearch={handleSearch}
         handleChange={handleChange}
         checkboxState={checkboxState}
+        isLoading={isLoading}
       />
 
       <section className='movies'>
@@ -195,13 +202,14 @@ function Movies({isLoggedIn}) {
           <MoviesCardList
             cards={foundCards}
             savedCards={savedCards}
-            isLoading={isLoading}
             onCardSave={onCardSave}
             onCardDelete={onCardDelete}
+            foundCards={foundCards}
           />
         )}
         {notFound && <p className='movies__card-message'>Ничего не найдено</p>}
-        {error && <p className='movies__card-message'>Во время запроса произошла ошибка.</p>}
+        {firstSearch && <p className='movies__card-message'>Для начала введите поисковой запрос</p>}
+        {error && <p className='movies__card-message'>Во время запроса произошла ошибка</p>}
       </section>
       <Footer />
     </>

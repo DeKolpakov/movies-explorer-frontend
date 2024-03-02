@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
@@ -6,13 +6,16 @@ import useFormValidator from '../../utils/useFormValidator';
 
 function Register({handleRegister, registerMessage, registerError}) {
   const validation = useFormValidator();
+  const isFormValid = validation.isValid;
+
+  const [disabled, setIsDisabled] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     handleRegister(validation.values);
+    setIsDisabled(true);
+    console.log(disabled);
   }
-
-  const isFormValid = validation.isValid;
 
   return (
     <section className='register'>
@@ -33,6 +36,7 @@ function Register({handleRegister, registerMessage, registerError}) {
           onChange={(e) => validation.handleChange(e)}
           minLength='2'
           maxLength='20'
+          disabled={disabled}
           required
         />
 
@@ -44,7 +48,7 @@ function Register({handleRegister, registerMessage, registerError}) {
           type='email'
           value={validation.values.email ?? ''}
           onChange={(e) => validation.handleChange(e)}
-          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+          disabled={disabled}
           required
         />
 
@@ -56,11 +60,12 @@ function Register({handleRegister, registerMessage, registerError}) {
           type='password'
           value={validation.values.password ?? ''}
           onChange={(e) => validation.handleChange(e)}
-          minLength='6'
+          minLength='8'
+          disabled={disabled}
           required
         />
 
-        <span className='register__span register__span_error' id='register__error'>
+        <span className='register__error' id='register__error'>
           {[
             validation.errors.name,
             validation.errors.email,
@@ -69,12 +74,16 @@ function Register({handleRegister, registerMessage, registerError}) {
             registerError,
           ].find(Boolean)}
         </span>
+        <span className='register__message' id='register__message'>
+          {registerMessage}
+        </span>
 
         <Button
           buttonId='register__button'
           buttonName='Зарегистрироваться'
           additionalClass={isFormValid ? 'button_active' : ''}
-          disabled={!isFormValid}
+          type='submit'
+          disabled={disabled && !isFormValid}
         />
       </form>
       <div className='register__footer'>

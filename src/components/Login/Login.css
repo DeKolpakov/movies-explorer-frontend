@@ -64,7 +64,7 @@
   color: #EE3465;
 }
 
-.login__span {
+.login__error {
   width: 396px;
   height: 13px;
   color: #ee3465;
@@ -74,7 +74,21 @@
   font-weight: 400;
   line-height: normal;
   display: inline-block;
-  margin: 10px auto 159px 0;
+  margin: 10px auto 0 0;
+  padding: 0;
+}
+
+.login__message {
+  width: 396px;
+  height: 13px;
+  color: #3ddc84;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: inline-block;
+  margin: 0 auto 159px 0;
   padding: 0;
 }
 

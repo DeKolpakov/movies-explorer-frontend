@@ -31,10 +31,7 @@ class ApiAuth {
       body: JSON.stringify({email, password}),
     })
       .then(this._checkResponse)
-      .then((data) => {
-        localStorage.setItem('_id', data._id);
-        return data;
-      });
+      
   }
 
   checkToken() {

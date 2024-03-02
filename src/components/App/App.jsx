@@ -30,45 +30,37 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userId = localStorage.getItem('_id');
-    if (userId) {
-      Promise.all([
-        mainApi.getUserInfo(),
-        auth.checkToken()
-      ])
-      .then(([userInfo, tokenInfo]) => {
-        setCurrentUser({
-          name: userInfo.name,
-          email: userInfo.email,
-          _id: userInfo._id,
+    const loggedIn = localStorage.getItem('loggedIn');
+    if (loggedIn && !isLoggedIn) {
+      Promise.all([mainApi.getUserInfo()])
+        .then(([userInfo]) => {
+          setCurrentUser({
+            name: userInfo.name,
+            email: userInfo.email,
+            _id: userInfo._id,
+          });
+          setIsLoggedIn(true);
+        })
+        .catch((err) => {
+          console.log(`Ошибка получения данных: ${err}`);
         });
-        setIsLoggedIn(true);
-        navigate('/movies');
-      })
-      .catch((err) => {
-        const [getUserInfoError, checkTokenError] = err;
-        if (getUserInfoError) {
-          console.log(`Ошибка получения данных: ${getUserInfoError.message}`);
-        }
-        if (checkTokenError) {
-          console.log(`Ошибка верификации токена, ${checkTokenError.message}`);
-        }
-      });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, currentUser]);
 
   function handleLogin({email, password}) {
     auth
       .authorize(email, password)
       .then((res) => {
         if (res) {
-          localStorage.setItem('_id', res._id);
           setIsLoggedIn(true);
-          setCurrentUser({
-            name: res.name,
-            email: res.email,
-            _id: res._id,
+          mainApi.getUserInfo().then((res) => {
+            setCurrentUser({
+              name: res.name,
+              email: res.email,
+              _id: res._id,
+            });
           });
+          localStorage.setItem('loggedIn', true);
           setLoginMessage('Успешная авторизация!');
           setTimeout(() => {
             setLoginMessage('');
@@ -90,13 +82,14 @@ function App() {
       .register(name, email, password)
       .then((res) => {
         if (res) {
-          localStorage.setItem('_id', res._id);
           setIsLoggedIn(true);
           setCurrentUser({
             name: res.name,
             email: res.email,
             _id: res._id,
           });
+          localStorage.setItem('loggedIn', true);
+          //localStorage.setItem('_id', res._id);
           setRegisterMessage('Успешная регистрация!');
           setTimeout(() => {
             setRegisterMessage('');
@@ -107,19 +100,17 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка регистрации: ${err}`);
         setRegisterError(`Ошибка регистрации`);
-        setTimeout(() => {
-          setRegisterError('');
-        }, 3000);
+        setRegisterError('');
       });
   }
 
   function handleUpdateUser(userData) {
     mainApi
       .editUserInfo(userData)
-      .then((newUserData) => {
-        console.log(newUserData);
-        setCurrentUser(newUserData);
+      .then((res) => {
+        setCurrentUser(res);
         setProfileMessage('Данные пользователя успешно обновлены!');
+        setProfileError('');
         setTimeout(() => {
           setProfileMessage('');
         }, 1000);
@@ -127,15 +118,13 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка обновления данных профиля: ${err}`);
         setProfileError(`Ошибка обновления данных профиля`);
-        setTimeout(() => {
-          setProfileError('');
-        }, 3000);
       });
   }
 
   function handleLogout() {
     localStorage.clear();
-    document.cookie = 'jwt; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost; Secure; HttpOnly; SameSite=None';
+
     setCurrentUser({name: '', email: '', _id: ''});
     setIsLoggedIn(false);
     navigate('/');

@@ -10,6 +10,32 @@
   padding: 0;
 }
 
+.movies__item:hover .movies__button-delete {
+  display: block;
+}
+
+.movies__button-delete {
+  display: none;
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  box-shadow: none;
+  border: none;
+  background: none;
+  background-image: url(../../../images/movies-button-delete.svg);
+  background-repeat: no-repeat;
+  transition: 0.8s;
+  padding: 0;
+  margin: 0;
+}
+
+.movies__button-delete:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .movies__button-save {
   width: 72px;
   height: 21px;
@@ -56,27 +82,6 @@
 }
 
 .movies__button-save_active:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.movies__button-delete {
-  width: 21px;
-  height: 21px;
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  box-shadow: none;
-  border: none;
-  background: none;
-  background-image: url(../../../images/movies-button-delete.svg);
-  background-repeat: no-repeat;
-  transition: 0.8s;
-  padding: 0;
-  margin: 0;
-}
-
-.movies__button-delete:hover {
   cursor: pointer;
   opacity: 0.8;
 }
@@ -158,6 +163,9 @@
 @media screen and (max-width: 780px) {
   .movies__item {
     width: 300px;
+  }
+  .movies__button-delete {
+    display: block;
   }
   .movies__img {
     width: 300px;

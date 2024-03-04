@@ -67,6 +67,10 @@ function Movies({isLoggedIn}) {
     checkSavedCards();
   }, [currentUser]);
 
+  useEffect(() => {
+    checkFirstSearch();
+  }, [currentUser, isLoading]);
+
   const handleChange = () => {
     setCheckboxState((current) => !current);
   };
@@ -83,7 +87,7 @@ function Movies({isLoggedIn}) {
 
   async function resetFilteredCards() {
     try {
-      let movies = JSON.parse(localStorage.getItem('movies'));
+      const movies = JSON.parse(localStorage.getItem('movies'));
       if (!Array.isArray(movies)) {
         setFirstSearch(true);
       } else {
@@ -104,16 +108,25 @@ function Movies({isLoggedIn}) {
 
   function setFilteredMovies(movies) {
     const filteredMovies = filterMovies(searchQuery, movies);
+    setFoundCards(filteredMovies);
+    setNotFound(filteredMovies.length === 0);
     localStorage.setItem('foundCards', JSON.stringify(filteredMovies));
     localStorage.setItem('searchQuery', searchQuery);
     localStorage.setItem('checkboxState', checkboxState);
-    setFoundCards(filteredMovies);
-    setNotFound(filteredMovies.length === 0);
   }
 
   function checkMovies() {
     const movies = localStorage.getItem('movies');
     return movies ? true : false;
+  }
+
+  function checkFirstSearch() {
+    const movies = localStorage.getItem('movies');
+    if (movies) {
+      setFirstSearch(false);
+    } else {
+      setFirstSearch(true);
+    }
   }
 
   const handleSearch = async () => {
@@ -134,6 +147,7 @@ function Movies({isLoggedIn}) {
       console.error(err);
       setError(true);
     } finally {
+      setFirstSearch(false);
       setIsLoading(false);
     }
   };
@@ -142,7 +156,6 @@ function Movies({isLoggedIn}) {
     try {
       const res = await mainApi.getMovies();
       const myMovies = res.filter((movie) => movie.owner === currentUser._id);
-
       setSavedCards(myMovies);
     } catch (err) {
       console.error(err);
@@ -207,8 +220,8 @@ function Movies({isLoggedIn}) {
             foundCards={foundCards}
           />
         )}
+        {!isLoading && firstSearch && <p className='movies__card-message'>Для начала введите поисковой запрос</p>}
         {notFound && <p className='movies__card-message'>Ничего не найдено</p>}
-        {firstSearch && <p className='movies__card-message'>Для начала введите поисковой запрос</p>}
         {error && <p className='movies__card-message'>Во время запроса произошла ошибка</p>}
       </section>
       <Footer />

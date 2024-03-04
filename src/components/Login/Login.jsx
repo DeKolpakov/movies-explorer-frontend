@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
 import useFormValidator from '../../utils/useFormValidator';
 
-function Login({handleLogin, loginMessage, loginError, isLoading}) {
+function Login({handleLogin, loginMessage, loginError}) {
+  const [isLoading, setIsLoading] = useState(false);
+  
   const validation = useFormValidator();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    handleLogin(validation.values);
-  }
-
   const isFormValid = validation.isValid;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await handleLogin(validation.values);
+    setIsLoading(false);
+  };
 
   return (
     <section className='login'>
@@ -23,7 +26,7 @@ function Login({handleLogin, loginMessage, loginError, isLoading}) {
       <form className='login__form' id='login__form' name='login__form' onSubmit={handleSubmit} noValidate>
         <p className='login__input-name'>E-mail</p>
         <input
-          className='login__input'
+          className={`login__input ${validation.errors.email ? 'login__input_novalide' : ''}`}
           id='email'
           name='email'
           type='email'
@@ -33,9 +36,12 @@ function Login({handleLogin, loginMessage, loginError, isLoading}) {
           disabled={isLoading}
           required
         />
+        <span className='login__error' id='login__error'>
+          {validation.errors.email}
+        </span>
         <p className='login__input-name'>Пароль</p>
         <input
-          className={`login__input ${!isFormValid ? 'login__input_novalide' : ''}`}
+          className={`login__input ${validation.errors.password ? 'login__input_novalide' : ''}`}
           id='password'
           name='password'
           type='password'
@@ -46,7 +52,7 @@ function Login({handleLogin, loginMessage, loginError, isLoading}) {
           required
         />
         <span className='login__error' id='login__error'>
-          {[validation.errors.email, validation.errors.password, loginError].find(Boolean)}
+          {[validation.errors.password, loginError].find(Boolean)}
         </span>
         <span className='login__message' id='login__message'>
           {loginMessage}

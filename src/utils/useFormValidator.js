@@ -20,19 +20,22 @@ function useFormValidator() {
   const handleChange = (event) => {
     const {name, value} = event.target;
     setValues({...values, [name]: value});
+    let updatedErrors;
     if (name === 'email') {
       const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
-      setErrors({...errors, [name]: isEmailValid ? '' : 'Введите корректный email адрес'});
+      updatedErrors = {...errors, [name]: isEmailValid ? '' : 'Введите корректный email адрес'};
     } else {
-      setErrors({...errors, [name]: event.target.validationMessage});
+      updatedErrors = {...errors, [name]: event.target.validationMessage};
     }
-    setIsValid(event.target.closest('form').checkValidity());
+    setErrors(updatedErrors);
+    const formIsValid = Object.values(updatedErrors).every((error) => !error);
+    const isFormValid = event.target.closest('form').checkValidity();
+    setIsValid(formIsValid && isFormValid);
   };
-
+  
   const setCurrentUserValues = (currentUser) => {
     setValues({name: currentUser.name, email: currentUser.email});
   };
-
   return {values, errors, isValid, handleChange, setCurrentUserValues};
 }
 

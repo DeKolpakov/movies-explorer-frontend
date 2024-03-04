@@ -52,12 +52,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin: 10px auto 20px auto;
-  padding: 0 0 0 15px;
-}
-
-.register__input:last-of-type {
   margin: 10px auto 0 auto;
+  padding: 0 0 0 15px;
 }
 
 .register__input_novalide {
@@ -66,16 +62,23 @@
 
 .register__error {
   width: 396px;
-  height: 13px;
+  height: 12px;
+  display: block;
   color: #ee3465;
   font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  display: inline-block;
-  margin: 10px auto 0 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 6px auto 10px 0;
   padding: 0;
+}
+
+.register__error:nth-of-type(3){
+  margin: 6px auto 0 0;
 }
 
 .register__message {
@@ -88,7 +91,7 @@
   font-weight: 400;
   line-height: normal;
   display: inline-block;
-  margin: 0 auto 70px 0;
+  margin: 0 auto 50px 0;
   padding: 0;
 }
 
@@ -151,6 +154,7 @@
   }
 
   .register__form {
+    width: 260px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -167,11 +171,9 @@
     width: 260px;
   }
 
-  .register__span {
+  .register__error {
     width: 260px;
-    height: 10px;
     font-size: 10px;
-    margin: 10px auto 160px 0;
   }
 
   .register__footer {

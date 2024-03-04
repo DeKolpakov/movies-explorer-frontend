@@ -5,17 +5,17 @@ import Button from '../Button/Button';
 import useFormValidator from '../../utils/useFormValidator';
 
 function Register({handleRegister, registerMessage, registerError}) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const validation = useFormValidator();
   const isFormValid = validation.isValid;
 
-  const [disabled, setIsDisabled] = useState(false);
-
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleRegister(validation.values);
-    setIsDisabled(true);
-    console.log(disabled);
-  }
+    setIsLoading(true);
+    await handleRegister(validation.values);
+    setIsLoading(false);
+  };
 
   return (
     <section className='register'>
@@ -28,7 +28,7 @@ function Register({handleRegister, registerMessage, registerError}) {
       <form className='register__form' id='register__form' name='register__form' onSubmit={handleSubmit} noValidate>
         <p className='register__input-name'>Имя</p>
         <input
-          className={`register__input `}
+          className={`register__input ${validation.errors.name ? 'register__input_novalide' : ''}`}
           id='name'
           name='name'
           type='text'
@@ -36,43 +36,42 @@ function Register({handleRegister, registerMessage, registerError}) {
           onChange={(e) => validation.handleChange(e)}
           minLength='2'
           maxLength='20'
-          disabled={disabled}
+          disabled={isLoading}
           required
         />
+        <span className='register__error' id='register__error'>
+          {validation.errors.name}
+        </span>
 
         <p className='register__input-name'>E-mail</p>
         <input
-          className={`register__input `}
+          className={`register__input ${validation.errors.email ? 'register__input_novalide' : ''}`}
           id='email'
           name='email'
           type='email'
           value={validation.values.email ?? ''}
           onChange={(e) => validation.handleChange(e)}
-          disabled={disabled}
+          disabled={isLoading}
           required
         />
+        <span className='register__error' id='register__error'>
+          {validation.errors.email}
+        </span>
 
         <p className='register__input-name'>Пароль</p>
         <input
-          className={`register__input ${!isFormValid ? 'register__input_novalide' : ''}`}
+          className={`register__input ${validation.errors.password ? 'register__input_novalide' : ''}`}
           id='password'
           name='password'
           type='password'
           value={validation.values.password ?? ''}
           onChange={(e) => validation.handleChange(e)}
           minLength='8'
-          disabled={disabled}
+          disabled={isLoading}
           required
         />
-
         <span className='register__error' id='register__error'>
-          {[
-            validation.errors.name,
-            validation.errors.email,
-            validation.errors.password,
-            registerMessage,
-            registerError,
-          ].find(Boolean)}
+          {[validation.errors.password, registerError].find(Boolean)}
         </span>
         <span className='register__message' id='register__message'>
           {registerMessage}
@@ -83,7 +82,7 @@ function Register({handleRegister, registerMessage, registerError}) {
           buttonName='Зарегистрироваться'
           additionalClass={isFormValid ? 'button_active' : ''}
           type='submit'
-          disabled={disabled && !isFormValid}
+          disabled={isLoading && !isFormValid}
         />
       </form>
       <div className='register__footer'>

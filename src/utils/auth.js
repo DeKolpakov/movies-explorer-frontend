@@ -5,6 +5,9 @@ class ApiAuth {
     if (res.ok) {
       return res.json();
     } else {
+      if (res.status === 409) {
+        return Promise.reject(`Пользователь с такими данными уже существует`);
+      }
       return Promise.reject(`Ошибка запроса: ${res.status}`);
     }
   }
@@ -29,9 +32,18 @@ class ApiAuth {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({email, password}),
-    })
-      .then(this._checkResponse)
-      
+    }).then(this._checkResponse);
+  }
+
+  logout() {
+    return fetch(`${BASE_URL}/signout`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(this._checkResponse);
   }
 
   checkToken() {

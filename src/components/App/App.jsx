@@ -30,10 +30,11 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem('loggedIn');
-    if (loggedIn && !isLoggedIn) {
-      Promise.all([mainApi.getUserInfo()])
-        .then(([userInfo]) => {
+    const userId = localStorage.getItem('_id');
+    if (userId) {
+      mainApi
+        .getUserInfo()
+        .then((userInfo) => {
           setCurrentUser({
             name: userInfo.name,
             email: userInfo.email,
@@ -45,31 +46,23 @@ function App() {
           console.log(`Ошибка получения данных: ${err}`);
         });
     }
-  }, [isLoggedIn, currentUser]);
+  }, [navigate]);
 
   function handleLogin({email, password}) {
     auth
       .authorize(email, password)
       .then((res) => {
-        if (res) {
-          setIsLoggedIn(true);
-          mainApi.getUserInfo().then((res) => {
-            setCurrentUser({
-              name: res.name,
-              email: res.email,
-              _id: res._id,
-            });
-          });
-          localStorage.setItem('loggedIn', true);
-          setLoginMessage('Успешная авторизация!');
-          setTimeout(() => {
-            setLoginMessage('');
-            navigate('/movies');
-          }, 1000);
-        }
+        setIsLoggedIn(true);
+        localStorage.setItem('_id', res._id);
+        localStorage.setItem('loggedIn', true);
+        setLoginMessage('Успешная авторизация!');
+        setTimeout(() => {
+          setLoginMessage('');
+          navigate('/movies');
+        }, 1000);
       })
       .catch((err) => {
-        console.log(`Ошибка авторизации: ${err}`);
+        console.log(`${err}`);
         setLoginError(`Ошибка авторизации`);
         setTimeout(() => {
           setLoginError('');
@@ -80,27 +73,16 @@ function App() {
   function handleRegister({name, email, password}) {
     auth
       .register(name, email, password)
-      .then((res) => {
-        if (res) {
-          setIsLoggedIn(true);
-          setCurrentUser({
-            name: res.name,
-            email: res.email,
-            _id: res._id,
-          });
-          localStorage.setItem('loggedIn', true);
-          //localStorage.setItem('_id', res._id);
-          setRegisterMessage('Успешная регистрация!');
-          setTimeout(() => {
-            setRegisterMessage('');
-            navigate('/movies');
-          }, 1000);
-        }
+      .then(() => {
+        setRegisterMessage('Успешная регистрация!');
+        handleLogin({email, password});
+        setTimeout(() => {
+          setRegisterMessage('');
+        }, 1000);
       })
       .catch((err) => {
-        console.log(`Ошибка регистрации: ${err}`);
-        setRegisterError(`Ошибка регистрации`);
-        setRegisterError('');
+        console.log(`${err}`);
+        setRegisterError(`${err}`);
       });
   }
 
@@ -117,14 +99,13 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка обновления данных профиля: ${err}`);
-        setProfileError(`Ошибка обновления данных профиля`);
+        setProfileError(`${err}`);
       });
   }
 
   function handleLogout() {
+    auth.logout();
     localStorage.clear();
-    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost; Secure; HttpOnly; SameSite=None';
-
     setCurrentUser({name: '', email: '', _id: ''});
     setIsLoggedIn(false);
     navigate('/');

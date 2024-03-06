@@ -10,6 +10,32 @@
   padding: 0;
 }
 
+.movies__item:hover .movies__button-delete {
+  display: block;
+}
+
+.movies__button-delete {
+  display: none;
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  box-shadow: none;
+  border: none;
+  background: none;
+  background-image: url(../../../images/movies-button-delete.svg);
+  background-repeat: no-repeat;
+  transition: 0.8s;
+  padding: 0;
+  margin: 0;
+}
+
+.movies__button-delete:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .movies__button-save {
   width: 72px;
   height: 21px;
@@ -24,12 +50,12 @@
   top: 14px;
   right: 14px;
   color: #fff;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: 9px;
-  transition: 0.8s;
+  transition: 0.3s;
   padding: 0;
   margin: 0;
 }
@@ -49,32 +75,13 @@
   border: none;
   background: none;
   background-image: url(../../../images/button-save-active.svg);
-  transition: 0.8s;
+  background-repeat: no-repeat;
+  transition: 0.3s;
   padding: 0;
   margin: 0;
 }
 
 .movies__button-save_active:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.movies__button-delete {
-  width: 21px;
-  height: 21px;
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  box-shadow: none;
-  border: none;
-  background: none;
-  background-image: url(../../../images/movies-button-delete.svg);
-  transition: 0.8s;
-  padding: 0;
-  margin: 0;
-}
-
-.movies__button-delete:hover {
   cursor: pointer;
   opacity: 0.8;
 }
@@ -104,7 +111,7 @@
 .movies__title {
   width: 250px;
   color: #fff;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-style: normal;
   font-weight: 500;
@@ -126,7 +133,7 @@
   background: #2f2f2f;
   color: #8b8b8b;
   text-align: center;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
@@ -156,6 +163,9 @@
 @media screen and (max-width: 780px) {
   .movies__item {
     width: 300px;
+  }
+  .movies__button-delete {
+    display: block;
   }
   .movies__img {
     width: 300px;

@@ -6,11 +6,16 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-color: transparent;
+  box-shadow: none;
   border: none;
   cursor: pointer;
   transition: 0.8s;
   margin: 0 30px 0 0;
   padding: 0;
+}
+
+.burger-button:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 768px) {

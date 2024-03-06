@@ -12,7 +12,7 @@
   max-width: 396px;
   text-align: start;
   color: #fff;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -29,7 +29,7 @@
 .login__input-name {
   width: 396px;
   color: #8b8b8b;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
@@ -47,34 +47,51 @@
   border-radius: 8px;
   background: #2f2f2f;
   color: #fff;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin: 10px auto 20px auto;
+  margin: 10px auto 0 auto;
   padding: 0 0 0 10px;
 }
 
-.login__input:last-of-type {
-  margin: 10px auto 0 auto;
-}
-
 .login__input_novalide {
-  color: #EE3465;
+  color: #ee3465;
 }
 
-.login__span {
+.login__error {
+  width: 396px;
+  height: 12px;
+  display: block;
+  color: #ee3465;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 6px auto 10px 0;
+  padding: 0;
+}
+
+.login__error:nth-of-type(2) {
+  margin: 6px auto 0 0;
+}
+
+.login__message {
   width: 396px;
   height: 13px;
-  color: #ee3465;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  color: #3ddc84;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   display: inline-block;
-  margin: 10px auto 159px 0;
+  margin: 0 auto 159px 0;
   padding: 0;
 }
 
@@ -89,7 +106,7 @@
 .login__footer-question {
   color: #8b8b8b;
   text-align: center;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -101,7 +118,7 @@
 .login__footer-link {
   color: #4285f4;
   text-align: center;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -137,6 +154,7 @@
   }
 
   .login__form {
+    width: 260px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -153,11 +171,9 @@
     width: 260px;
   }
 
-  .login__span {
+  .login__error {
     width: 260px;
-    height: 10px;
     font-size: 10px;
-    margin: 0 auto 257px 0;
   }
 
   .login__footer {

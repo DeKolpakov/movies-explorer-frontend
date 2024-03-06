@@ -2,37 +2,20 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
-import validator from '../../utils/validator';
+import useFormValidator from '../../utils/useFormValidator';
 
-function Register() {
-  const [state, setState] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+function Register({handleRegister, registerMessage, registerError}) {
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const validation = useFormValidator();
+  const isFormValid = validation.isValid;
 
-    validator.showMessageFor(name);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (validator.allValid()) {
-      console.log('Данные отправлены:', state);
-    } else {
-      validator.showMessages();
-      setState((prevState) => ({...prevState}));
-    }
+    setIsLoading(true);
+    await handleRegister(validation.values);
+    setIsLoading(false);
   };
-
-  const isFormValid = validator.allValid();
 
   return (
     <section className='register'>
@@ -44,40 +27,62 @@ function Register() {
 
       <form className='register__form' id='register__form' name='register__form' onSubmit={handleSubmit} noValidate>
         <p className='register__input-name'>Имя</p>
-        <input className={`register__input `} id='name' name='name' type='text' value={state.name} onChange={handleChange} required />
+        <input
+          className={`register__input ${validation.errors.name ? 'register__input_novalide' : ''}`}
+          id='name'
+          name='name'
+          type='text'
+          value={validation.values.name ?? ''}
+          onChange={(e) => validation.handleChange(e)}
+          minLength='2'
+          maxLength='20'
+          disabled={isLoading}
+          required
+        />
+        <span className='register__error' id='register__error'>
+          {validation.errors.name}
+        </span>
 
         <p className='register__input-name'>E-mail</p>
         <input
-          className={`register__input `}
+          className={`register__input ${validation.errors.email ? 'register__input_novalide' : ''}`}
           id='email'
           name='email'
           type='email'
-          value={state.email}
-          onChange={handleChange}
+          value={validation.values.email ?? ''}
+          onChange={(e) => validation.handleChange(e)}
+          disabled={isLoading}
           required
         />
+        <span className='register__error' id='register__error'>
+          {validation.errors.email}
+        </span>
 
         <p className='register__input-name'>Пароль</p>
         <input
-          className={`register__input ${!validator.fieldValid('password') ? 'register__input_novalide' : ''}`}
+          className={`register__input ${validation.errors.password ? 'register__input_novalide' : ''}`}
           id='password'
           name='password'
           type='password'
-          value={state.password}
-          onChange={handleChange}
+          value={validation.values.password ?? ''}
+          onChange={(e) => validation.handleChange(e)}
+          minLength='8'
+          disabled={isLoading}
           required
         />
-
-        <span className='register__span register__span_error' id='register__error'>
-          {validator.message('name', state.name, 'required|min:2|max:30')}
-          {validator.message('email', state.email, 'required|email')}
-          {validator.message('password', state.password, 'required|min:6')}
+        <span className='register__error' id='register__error'>
+          {[validation.errors.password, registerError].find(Boolean)}
         </span>
+        <span className='register__message' id='register__message'>
+          {registerMessage}
+        </span>
+
         <Button
           buttonId='register__button'
           buttonName='Зарегистрироваться'
           additionalClass={isFormValid ? 'button_active' : ''}
-          disabled={!isFormValid}
+          type='submit'
+          disabled={isLoading && !isFormValid}
         />
       </form>
       <div className='register__footer'>

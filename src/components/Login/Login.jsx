@@ -2,71 +2,67 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
+import useFormValidator from '../../utils/useFormValidator';
 
-import validator from '../../utils/validator';
+function Login({handleLogin, loginMessage, loginError}) {
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const validation = useFormValidator();
+  const isFormValid = validation.isValid;
 
-function Login() {
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const {name, value} = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-
-    validator.showMessageFor(name);
+    setIsLoading(true);
+    await handleLogin(validation.values);
+    setIsLoading(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (validator.allValid()) {
-      console.log('Данные отправлены:', state);
-    } else {
-      validator.showMessages();
-      setState((prevState) => ({...prevState}));
-    }
-  };
-
-  const isFormValid = validator.allValid();
   return (
     <section className='login'>
       <Link to='/'>
         <img src={logo} alt='Логотип' className='logo logo__login' />
       </Link>
-
       <h1 className='login__title'>Рады видеть!</h1>
-
       <form className='login__form' id='login__form' name='login__form' onSubmit={handleSubmit} noValidate>
         <p className='login__input-name'>E-mail</p>
-        <input className='login__input' id='email' name='email' type='email' value={state.email} onChange={handleChange} required />
-
+        <input
+          className={`login__input ${validation.errors.email ? 'login__input_novalide' : ''}`}
+          id='email'
+          name='email'
+          type='email'
+          value={validation.values.email ?? ''}
+          onChange={(e) => validation.handleChange(e)}
+          minLength='2'
+          disabled={isLoading}
+          required
+        />
+        <span className='login__error' id='login__error'>
+          {validation.errors.email}
+        </span>
         <p className='login__input-name'>Пароль</p>
         <input
-          className={`login__input ${!validator.fieldValid('password') ? 'login__input_novalide' : ''}`}
+          className={`login__input ${validation.errors.password ? 'login__input_novalide' : ''}`}
           id='password'
           name='password'
           type='password'
-          value={state.password}
-          onChange={handleChange}
+          value={validation.values.password ?? ''}
+          onChange={(e) => validation.handleChange(e)}
+          minLength='8'
+          disabled={isLoading}
           required
         />
-
-        <span className='login__span login__span_error' id='login__error'>
-          {validator.message('email', state.email, 'required|email')}
-          {validator.message('password', state.password, 'required|min:6')}
+        <span className='login__error' id='login__error'>
+          {[validation.errors.password, loginError].find(Boolean)}
         </span>
-
+        <span className='login__message' id='login__message'>
+          {loginMessage}
+        </span>
         <Button
           buttonId='login__button'
           buttonName='Войти'
           additionalClass={isFormValid ? 'button_active' : ''}
-          disabled={!isFormValid}
+          type='submit'
+          disabled={isLoading && !isFormValid}
         />
       </form>
       <div className='login__footer'>

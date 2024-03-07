@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from 'react';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Preloader from '../Preloader/Preloader';
+import PreloaderCards from '../Preloader/PreloaderCards';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 
@@ -29,11 +29,6 @@ function Movies({isLoggedIn}) {
     return data;
   };
 
-  const getQueryFromLocalStorage = () => {
-    const data = getLocalStorageData('searchQuery');
-    return typeof data === 'string' ? data : '';
-  };
-
   const getFoundCardsFromLocalStorage = () => {
     const data = getLocalStorageData('foundCards');
     return Array.isArray(data) ? data : [];
@@ -49,7 +44,7 @@ function Movies({isLoggedIn}) {
     return typeof JSON.parse(data) === 'boolean' ? JSON.parse(data) : false;
   };
 
-  const [searchQuery, setSearchQuery] = useState(getQueryFromLocalStorage);
+  const [searchQuery, setSearchQuery] = useState('');
   const [foundCards, setFoundCards] = useState(getFoundCardsFromLocalStorage);
   const [checkboxState, setCheckboxState] = useState(getCheckboxStateFromLocalStorage);
   const [notFound, setNotFound] = useState(getNotFoundFromLocalStorage);
@@ -111,7 +106,6 @@ function Movies({isLoggedIn}) {
     setFoundCards(filteredMovies);
     setNotFound(filteredMovies.length === 0);
     localStorage.setItem('foundCards', JSON.stringify(filteredMovies));
-    localStorage.setItem('searchQuery', searchQuery);
     localStorage.setItem('checkboxState', checkboxState);
   }
 
@@ -147,6 +141,9 @@ function Movies({isLoggedIn}) {
       console.error(err);
       setError(true);
     } finally {
+     /*  setTimeout(() => {
+        setIsLoading(false);
+      }, 10000); */
       setFirstSearch(false);
       setIsLoading(false);
     }
@@ -210,19 +207,23 @@ function Movies({isLoggedIn}) {
 
       <section className='movies'>
         {isLoading ? (
-          <Preloader />
+          <PreloaderCards />
         ) : (
-          <MoviesCardList
-            cards={foundCards}
-            savedCards={savedCards}
-            onCardSave={onCardSave}
-            onCardDelete={onCardDelete}
-            foundCards={foundCards}
-          />
+          <>
+            <MoviesCardList
+              cards={foundCards}
+              savedCards={savedCards}
+              onCardSave={onCardSave}
+              onCardDelete={onCardDelete}
+              foundCards={foundCards}
+            />
+            {[
+              !isLoading && firstSearch && <p className='movies__message'>Для начала введите поисковой запрос</p>,
+              notFound && <p className='movies__message'>Ничего не найдено</p>,
+              error && <p className='movies__message'>Во время запроса произошла ошибка</p>,
+            ].find(Boolean)}
+          </>
         )}
-        {!isLoading && firstSearch && <p className='movies__card-message'>Для начала введите поисковой запрос</p>}
-        {notFound && <p className='movies__card-message'>Ничего не найдено</p>}
-        {error && <p className='movies__card-message'>Во время запроса произошла ошибка</p>}
       </section>
       <Footer />
     </>

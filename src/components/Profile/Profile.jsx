@@ -1,5 +1,4 @@
 import React, {useEffect, useContext, useState} from 'react';
-import {Link} from 'react-router-dom';
 import Header from '../Header/Header';
 import Button from '../Button/Button';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
@@ -76,11 +75,7 @@ function Profile({isLoggedIn, handleLogout, handleUpdateUser, profileMessage, pr
           </span>
           <span className='profile__message'>{profileMessage}</span>
           {!isChanged ? (
-            <button
-              type='button'
-              className={`profile__button-edit ${!isFormValid ? 'profile__button-edit_disabled' : ''}`}
-              onClick={handleEdit}
-            >
+            <button type='button' className='profile__button-edit' onClick={handleEdit}>
               Редактировать
             </button>
           ) : isFormValid ? (
@@ -101,9 +96,9 @@ function Profile({isLoggedIn, handleLogout, handleUpdateUser, profileMessage, pr
               disabled={false}
             />
           )}
-          <Link className='profile__signout-link' to='/' onClick={handleLogout}>
+          <button className='profile__button-signout' onClick={handleLogout} type='button'>
             Выйти из аккаунта
-          </Link>
+          </button>
         </form>
       </section>
     </>

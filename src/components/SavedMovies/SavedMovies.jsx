@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from 'react';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Preloader from '../Preloader/Preloader';
+import PreloaderCards from '../Preloader/PreloaderCards';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 
@@ -39,6 +39,9 @@ function SavedMovies({isLoggedIn}) {
         console.error(e);
         setError(true);
       } finally {
+        /*  setTimeout(() => {
+          setIsLoading(false);
+        }, 100000); */
         setIsLoading(false);
       }
     }
@@ -104,20 +107,7 @@ function SavedMovies({isLoggedIn}) {
       .catch((err) => {
         console.log(`Ошибка ${err}`);
       });
-    /* try {
-      await mainApi.delMovie(id);
-      const res = await mainApi.getMovies();
-      if (res.length === 0) {
-        setSavedCards(res);
-        setNotFound(true);
-      } else {
-        setNotFound(false)
-        setSavedCards(res);
-        setDisplayedCards(savedCards);
-      }
-    } catch (e) {
-      console.error(e);
-    } */
+    
   }
 
   return (
@@ -133,17 +123,21 @@ function SavedMovies({isLoggedIn}) {
 
       <section className='movies'>
         {isLoading ? (
-          <Preloader />
+          <PreloaderCards />
         ) : (
-          <MoviesCardList
-            cards={displayedCards}
-            savedCards={savedCards}
-            isLoading={isLoading}
-            onCardDelete={onCardDelete}
-          />
+          <>
+            <MoviesCardList
+              cards={displayedCards}
+              savedCards={savedCards}
+              isLoading={isLoading}
+              onCardDelete={onCardDelete}
+            />
+            {[
+              notFound && <p className='movies__message'>У вас пока нет сохраненных фильмов</p>,
+              error && <p className='movies__message'>Во время запроса произошла ошибка</p>,
+            ].find(Boolean)}
+          </>
         )}
-        {notFound && <p className='movies__card-message'>У вас пока нет сохраненных фильмов</p>}
-        {error && <p className='movies__card-message'>Во время запроса произошла ошибка.</p>}
       </section>
 
       <Footer />

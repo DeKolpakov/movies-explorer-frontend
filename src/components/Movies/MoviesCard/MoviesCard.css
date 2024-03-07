@@ -146,38 +146,42 @@
   .movies__item {
     width: 339px;
   }
+
   .movies__img {
     width: 339px;
     height: 190px;
   }
+
   .movies__info {
-    margin: 25px 0 0 0;
+    margin: 16px 0 0 0;
   }
+
   .movies__title {
-    width: 250px;
+    width: 220px;
     font-size: 13px;
-    margin: 0 0 0 auto;
+    margin: 0 auto 0 0;
   }
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 750px) {
   .movies__item {
     width: 300px;
   }
+
   .movies__button-delete {
     display: block;
   }
+
   .movies__img {
     width: 300px;
     height: 168px;
   }
-  .movies__info {
-    margin: 16px 0 0 0;
-  }
+
   .movies__button-save_active {
     top: 10px;
     right: 10px;
   }
+
   .movies__button-delete {
     top: 10px;
     right: 10px;

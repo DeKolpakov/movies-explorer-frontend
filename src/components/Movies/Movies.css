@@ -20,7 +20,7 @@
   justify-content: center;
   color: #fff;
   text-align: center;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -38,6 +38,18 @@
   opacity: 0.7;
 }
 
+.movies__message {
+  color: #fff;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.8px;
+  margin: 0 auto 0 auto;
+  padding: 0;
+}
+
 @media screen and (max-width: 1200px) {
   .movies {
     max-width: 900px;
@@ -48,11 +60,20 @@
   .movies {
     max-width: 708px;
   }
+
+  .movies__message {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
 }
 
 @media screen and (max-width: 750px) {
   .movies {
     max-width: 350px;
+  }
+
+  .movies__message {
+    font-size: 14px;
   }
 }
 

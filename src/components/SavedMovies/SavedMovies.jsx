@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import PreloaderCards from '../Preloader/PreloaderCards';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import Message from '../Message/Message';
 
 import mainApi from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
@@ -107,7 +108,6 @@ function SavedMovies({isLoggedIn}) {
       .catch((err) => {
         console.log(`Ошибка ${err}`);
       });
-    
   }
 
   return (
@@ -132,10 +132,7 @@ function SavedMovies({isLoggedIn}) {
               isLoading={isLoading}
               onCardDelete={onCardDelete}
             />
-            {[
-              notFound && <p className='movies__message'>У вас пока нет сохраненных фильмов</p>,
-              error && <p className='movies__message'>Во время запроса произошла ошибка</p>,
-            ].find(Boolean)}
+            <Message notFound={notFound} error={error} />
           </>
         )}
       </section>

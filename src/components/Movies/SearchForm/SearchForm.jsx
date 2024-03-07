@@ -35,8 +35,10 @@ function SearchForm({query, setQuery, handleSearch, handleChange, checkboxState,
         />
         <button className='search-form__button' id='search-button' type='submit' disabled={isLoading} />
       </form>
-      <span className='search-form__span'>{searchError}</span>
-      <CheckBox handleChange={handleChange} checkboxState={checkboxState} />
+      <div className='search-form__settings'>
+        <span className='search-form__span'>{searchError}</span>
+        <CheckBox handleChange={handleChange} checkboxState={checkboxState} />
+      </div>
     </section>
   );
 }

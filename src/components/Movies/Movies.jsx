@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import PreloaderCards from '../Preloader/PreloaderCards';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
+import Message from '../Message/Message';
 
 import mainApi from '../../utils/MainApi';
 import movieApi from '../../utils/MovieApi';
@@ -141,7 +142,7 @@ function Movies({isLoggedIn}) {
       console.error(err);
       setError(true);
     } finally {
-     /*  setTimeout(() => {
+      /*  setTimeout(() => {
         setIsLoading(false);
       }, 10000); */
       setFirstSearch(false);
@@ -217,11 +218,7 @@ function Movies({isLoggedIn}) {
               onCardDelete={onCardDelete}
               foundCards={foundCards}
             />
-            {[
-              !isLoading && firstSearch && <p className='movies__message'>Для начала введите поисковой запрос</p>,
-              notFound && <p className='movies__message'>Ничего не найдено</p>,
-              error && <p className='movies__message'>Во время запроса произошла ошибка</p>,
-            ].find(Boolean)}
+            <Message isLoading={isLoading} firstSearch={firstSearch} notFound={notFound} error={error} />
           </>
         )}
       </section>

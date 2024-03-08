@@ -12,6 +12,10 @@ import movieApi from '../../utils/MovieApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import {TIME_MOVIE_SHORT} from '../../utils/constants';
 
+import noSearch from '../../images/firstSearch.png';
+import dontFind from '../../images/dontFind.png';
+import requestError from '../../images/requestError.png';
+
 function Movies({isLoggedIn}) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -218,7 +222,9 @@ function Movies({isLoggedIn}) {
               onCardDelete={onCardDelete}
               foundCards={foundCards}
             />
-            <Message isLoading={isLoading} firstSearch={firstSearch} notFound={notFound} error={error} />
+            {!isLoading && firstSearch && <Message img={noSearch} />}
+            {notFound && <Message img={dontFind} />}
+            {error && <Message img={requestError} />}
           </>
         )}
       </section>

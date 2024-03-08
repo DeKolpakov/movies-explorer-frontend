@@ -10,6 +10,10 @@ import Message from '../Message/Message';
 import mainApi from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
+import dontFind from '../../images/dontFind.png';
+import dontSave from '../../images/dontSave.png';
+import requestError from '../../images/requestError.png';
+
 function SavedMovies({isLoggedIn}) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -97,12 +101,13 @@ function SavedMovies({isLoggedIn}) {
     mainApi
       .delMovie(id)
       .then(() => {
-        const displaedMoviesList = displayedCards.filter((item) => item._id !== id);
+        const displaedMoviesList = savedCards.filter((item) => item._id !== id);
         if (displaedMoviesList.length === 0) {
           setNotFound(true);
+          setSavedCards(displaedMoviesList);
         } else {
           setNotFound(false);
-          setDisplayedCards(displaedMoviesList);
+          setSavedCards(displaedMoviesList);
         }
       })
       .catch((err) => {
@@ -132,7 +137,8 @@ function SavedMovies({isLoggedIn}) {
               isLoading={isLoading}
               onCardDelete={onCardDelete}
             />
-            <Message notFound={notFound} error={error} />
+            {notFound && <Message img={dontSave} />}
+            {error && <Message img={requestError} />}
           </>
         )}
       </section>

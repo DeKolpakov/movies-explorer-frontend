@@ -11,13 +11,13 @@
   box-sizing: border-box;
   background-color: transparent;
   overflow: hidden;
-  margin: 40px auto 40px auto;
+  margin: 0 auto 40px auto;
   padding: 0;
 }
 
 @media screen and (max-width: 1200px) {
   .message__image {
-    margin: 20px auto 20px auto;
+    margin: 0 auto 20px auto;
   }
 }
 
@@ -33,7 +33,7 @@
   }
 
   .message__image {
-    margin: 10px auto 10px auto;
+    margin: 0 auto 10px auto;
   }
 }
 

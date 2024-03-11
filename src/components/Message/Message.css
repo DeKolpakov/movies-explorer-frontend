@@ -11,14 +11,8 @@
   box-sizing: border-box;
   background-color: transparent;
   overflow: hidden;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 0 auto;
   padding: 0;
-}
-
-@media screen and (max-width: 1200px) {
-  .message__image {
-    margin: 0 auto 20px auto;
-  }
 }
 
 @media screen and (max-width: 960px) {
@@ -27,18 +21,14 @@
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
   .message {
     margin: 0 25px 50px 25px;
-  }
-
-  .message__image {
-    margin: 0 auto 10px auto;
   }
 }
 
 @media screen and (max-width: 520px) {
   .message {
-    margin: 0 20px 30px 20px;
+    margin: 0 20px 160px 20px;
   }
 }

@@ -100,7 +100,7 @@
   padding: 0;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
   .search-form__input {
     height: 44px;
   }

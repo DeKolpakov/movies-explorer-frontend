@@ -163,7 +163,7 @@
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
   .movies__item {
     width: 300px;
   }

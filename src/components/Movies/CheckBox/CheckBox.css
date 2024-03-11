@@ -72,6 +72,12 @@
   -ms-transform: translate(20px);
 }
 
+@media screen and (max-width: 900px) {
+  .check-box {
+    margin: 0 55px 0 0;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .check-box {
     margin: 0 0 0 0;

@@ -173,7 +173,10 @@
 
   .register__error {
     width: 260px;
-    font-size: 10px;
+  }
+
+  .register__message {
+    width: 260px;
   }
 
   .register__footer {

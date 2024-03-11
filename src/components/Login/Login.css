@@ -173,7 +173,10 @@
 
   .login__error {
     width: 260px;
-    font-size: 10px;
+  }
+
+  .login__message {
+    width: 260px;
   }
 
   .login__footer {

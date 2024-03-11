@@ -9,14 +9,14 @@
 <a name="summary">
   <details>
     <summary>Оглавление</summary>
-    <ol>
+    <ul>
       <li><a href="#description">Описание проекта</a></li>
       <li><a href="#tech">Стек технологий</a></li>
       <li><a href="#test">Установка и запуск приложения для тестирования</a></li>
-      <li><a href="#tasks">Задачи</a></li>
       <li><a href="#function">Функционал</a></li>
+      <li><a href="#tasks">Задачи</a></li>
       <li><a href="#version">Версии приложения</a></li>
-    </ol>
+    </ul>
   </details>
 </a>
 
@@ -51,19 +51,19 @@
 5. `npm ci` - установить необходимые зависимости
 6. `npm run start` - запустить frontend часть приложение (по умолчанию порт 3001)
 
-<a name="tasks"><h2>4. Задачи</h2></a>
+<a name="function"><h2>4. Функционал</h2></a>
+
+- Регистрация и авторизация пользователей с редактированием личных данных
+- Валидация данных на стороне клиента
+- Поиск фильмов с возможностью сортировки короткометражек, добавлением в избранные и удалением
+
+<a name="tasks"><h2>5. Задачи</h2></a>
 
 Задачи проэкта были разделены на 3 этапа:
 
 1. Верстка и JSX (чек-лист https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/checklist_jsx_diplom.pdf)
 2. Функциональность на «React» и JS (чек-лист https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/checklist_react_diplom.pdf)
 3. Самостоятельная дороботка (план работ указан в разделе<a href="#version"> Версии приложения</a>)
-
-<a name="function"><h2>5. Функционал</h2></a>
-
-- Регистрация и авторизация пользователей с редактированием личных данных
-- Валидация данных на стороне клиента
-- Поиск фильмов с возможностью сортировки короткометражек, добавлением в избранные и удалением
 
 <a name="version"><h2>6. Версии приложения</h2></a>
 
@@ -72,3 +72,9 @@
 - <b>v 1.3 SASS (SCSS)</b> --В процессе
 - <b>v 1.4 Добавление светлой темы</b> --В процессе
 - <b>v 1.5 Оптимизация лишних запросов</b> --В процессе
+
+<div align="center">
+  <a href="https://movie.dekolpakov.nomoredomainsmonster.ru">
+    <img width="550" alt="Карточки сообщений" src="./src/images/readme2.png">
+  </a>
+</div>

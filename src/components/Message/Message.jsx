@@ -9,10 +9,3 @@ function Message({img}) {
 }
 
 export default Message;
-
-/* [
-  !isLoading && firstSearch && noSearch,
-  notFound && dontFind,
-  error && requestError,
-  error && pathname === '/savedmovies' && dontSave,
-].find(Boolean) */

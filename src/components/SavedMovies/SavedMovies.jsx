@@ -2,12 +2,17 @@ import React, {useContext, useState, useEffect} from 'react';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Preloader from '../Preloader/Preloader';
+import PreloaderCards from '../Preloader/PreloaderCards';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import Message from '../Message/Message';
 
 import mainApi from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+
+import dontFind from '../../images/dontFind.png';
+import dontSave from '../../images/dontSave.png';
+import requestError from '../../images/requestError.png';
 
 function SavedMovies({isLoggedIn}) {
   const currentUser = useContext(CurrentUserContext);
@@ -39,6 +44,9 @@ function SavedMovies({isLoggedIn}) {
         console.error(e);
         setError(true);
       } finally {
+        /*  setTimeout(() => {
+          setIsLoading(false);
+        }, 100000); */
         setIsLoading(false);
       }
     }
@@ -93,31 +101,18 @@ function SavedMovies({isLoggedIn}) {
     mainApi
       .delMovie(id)
       .then(() => {
-        const displaedMoviesList = displayedCards.filter((item) => item._id !== id);
+        const displaedMoviesList = savedCards.filter((item) => item._id !== id);
         if (displaedMoviesList.length === 0) {
           setNotFound(true);
+          setSavedCards(displaedMoviesList);
         } else {
           setNotFound(false);
-          setDisplayedCards(displaedMoviesList);
+          setSavedCards(displaedMoviesList);
         }
       })
       .catch((err) => {
         console.log(`Ошибка ${err}`);
       });
-    /* try {
-      await mainApi.delMovie(id);
-      const res = await mainApi.getMovies();
-      if (res.length === 0) {
-        setSavedCards(res);
-        setNotFound(true);
-      } else {
-        setNotFound(false)
-        setSavedCards(res);
-        setDisplayedCards(savedCards);
-      }
-    } catch (e) {
-      console.error(e);
-    } */
   }
 
   return (
@@ -133,17 +128,19 @@ function SavedMovies({isLoggedIn}) {
 
       <section className='movies'>
         {isLoading ? (
-          <Preloader />
+          <PreloaderCards />
         ) : (
-          <MoviesCardList
-            cards={displayedCards}
-            savedCards={savedCards}
-            isLoading={isLoading}
-            onCardDelete={onCardDelete}
-          />
+          <>
+            <MoviesCardList
+              cards={displayedCards}
+              savedCards={savedCards}
+              isLoading={isLoading}
+              onCardDelete={onCardDelete}
+            />
+            {notFound && <Message img={dontSave} />}
+            {error && <Message img={requestError} />}
+          </>
         )}
-        {notFound && <p className='movies__card-message'>У вас пока нет сохраненных фильмов</p>}
-        {error && <p className='movies__card-message'>Во время запроса произошла ошибка.</p>}
       </section>
 
       <Footer />

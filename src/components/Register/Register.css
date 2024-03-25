@@ -91,7 +91,7 @@
   font-weight: 400;
   line-height: normal;
   display: inline-block;
-  margin: 0 auto 50px 0;
+  margin: 0 auto 45px 0;
   padding: 0;
 }
 
@@ -143,7 +143,7 @@
 @media screen and (max-width: 600px) {
   .register {
     align-items: center;
-    margin: 56px auto 0 auto;
+    margin: 50px auto 0 auto;
     padding: 0;
   }
 
@@ -159,7 +159,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 80px auto 0 auto;
+    margin: 60px auto 0 auto;
     padding: 0;
   }
 
@@ -173,7 +173,10 @@
 
   .register__error {
     width: 260px;
-    font-size: 10px;
+  }
+
+  .register__message {
+    width: 260px;
   }
 
   .register__footer {

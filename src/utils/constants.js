@@ -14,5 +14,5 @@ export const ADD_MOVIE_L = 3;
 export const ADD_MOVIE_M = 2;
 
 export const WIDTH_SIZE_L = 1200;
-export const WIDTH_SIZE_M = 750;
+export const WIDTH_SIZE_M = 630;
 export const WIDTH_SIZE_S = 450;

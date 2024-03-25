@@ -2,14 +2,19 @@ import React, {useContext, useState, useEffect} from 'react';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Preloader from '../Preloader/Preloader';
+import PreloaderCards from '../Preloader/PreloaderCards';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
+import Message from '../Message/Message';
 
 import mainApi from '../../utils/MainApi';
 import movieApi from '../../utils/MovieApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import {TIME_MOVIE_SHORT} from '../../utils/constants';
+
+import noSearch from '../../images/firstSearch.png';
+import dontFind from '../../images/dontFind.png';
+import requestError from '../../images/requestError.png';
 
 function Movies({isLoggedIn}) {
   const currentUser = useContext(CurrentUserContext);
@@ -29,11 +34,6 @@ function Movies({isLoggedIn}) {
     return data;
   };
 
-  const getQueryFromLocalStorage = () => {
-    const data = getLocalStorageData('searchQuery');
-    return typeof data === 'string' ? data : '';
-  };
-
   const getFoundCardsFromLocalStorage = () => {
     const data = getLocalStorageData('foundCards');
     return Array.isArray(data) ? data : [];
@@ -49,7 +49,7 @@ function Movies({isLoggedIn}) {
     return typeof JSON.parse(data) === 'boolean' ? JSON.parse(data) : false;
   };
 
-  const [searchQuery, setSearchQuery] = useState(getQueryFromLocalStorage);
+  const [searchQuery, setSearchQuery] = useState('');
   const [foundCards, setFoundCards] = useState(getFoundCardsFromLocalStorage);
   const [checkboxState, setCheckboxState] = useState(getCheckboxStateFromLocalStorage);
   const [notFound, setNotFound] = useState(getNotFoundFromLocalStorage);
@@ -111,7 +111,6 @@ function Movies({isLoggedIn}) {
     setFoundCards(filteredMovies);
     setNotFound(filteredMovies.length === 0);
     localStorage.setItem('foundCards', JSON.stringify(filteredMovies));
-    localStorage.setItem('searchQuery', searchQuery);
     localStorage.setItem('checkboxState', checkboxState);
   }
 
@@ -147,6 +146,9 @@ function Movies({isLoggedIn}) {
       console.error(err);
       setError(true);
     } finally {
+      /*  setTimeout(() => {
+        setIsLoading(false);
+      }, 10000); */
       setFirstSearch(false);
       setIsLoading(false);
     }
@@ -210,19 +212,21 @@ function Movies({isLoggedIn}) {
 
       <section className='movies'>
         {isLoading ? (
-          <Preloader />
+          <PreloaderCards />
         ) : (
-          <MoviesCardList
-            cards={foundCards}
-            savedCards={savedCards}
-            onCardSave={onCardSave}
-            onCardDelete={onCardDelete}
-            foundCards={foundCards}
-          />
+          <>
+            <MoviesCardList
+              cards={foundCards}
+              savedCards={savedCards}
+              onCardSave={onCardSave}
+              onCardDelete={onCardDelete}
+              foundCards={foundCards}
+            />
+            {!isLoading && firstSearch && <Message img={noSearch} />}
+            {notFound && <Message img={dontFind} />}
+            {error && <Message img={requestError} />}
+          </>
         )}
-        {!isLoading && firstSearch && <p className='movies__card-message'>Для начала введите поисковой запрос</p>}
-        {notFound && <p className='movies__card-message'>Ничего не найдено</p>}
-        {error && <p className='movies__card-message'>Во время запроса произошла ошибка</p>}
       </section>
       <Footer />
     </>

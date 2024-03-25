@@ -20,7 +20,7 @@
   justify-content: center;
   color: #fff;
   text-align: center;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -44,22 +44,7 @@
   }
 }
 
-@media screen and (max-width: 960px) {
-  .movies {
-    max-width: 708px;
-  }
-}
-
-@media screen and (max-width: 750px) {
-  .movies {
-    max-width: 350px;
-  }
-}
-
 @media screen and (max-width: 520px) {
-  .movies {
-    max-width: 292px;
-  }
   .movies__button-more {
     width: 260px;
   }

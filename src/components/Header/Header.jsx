@@ -45,7 +45,7 @@ function Header({isLoggedIn}) {
           </div>
         )}
 
-        <BurgerButton onBurgerMenu={handleBurgerMenuClick} />
+        {isLoggedIn ? <BurgerButton onBurgerMenu={handleBurgerMenuClick} isLoggedIn={isLoggedIn} /> : ''}
       </header>
       <BurgerMenu isBurgerMenuOpen={isBurgerMenuOpen} onClose={closeBurgerMenu} />
     </>

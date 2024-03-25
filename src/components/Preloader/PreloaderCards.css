@@ -1,0 +1,132 @@
+@keyframes flareAnimation {
+  0% {
+    left: -150%;
+  }
+
+  50% {
+    left: 150%;
+  }
+
+  100% {
+    left: -150%;
+  }
+}
+
+.preloader__img {
+  width: 360px;
+  height: 201px;
+  border-radius: 5px;
+  background: #272727;
+  position: relative;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.preloader__img .flare {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  transform: skewX(-45deg);
+  animation: flareAnimation;
+  left: -150%;
+  background: linear-gradient(90deg, #272727, #2f2f2f, #272727);
+  animation: flareAnimation 3s infinite linear;
+}
+
+.preloader__button-save {
+  width: 72px;
+  height: 21px;
+  border-radius: 10px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #313131;
+  box-shadow: none;
+  border: none;
+  transition: 0.3s;
+  z-index: 5;
+  padding: 0;
+  margin: 0;
+}
+
+.preloader__button-delete {
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #313131;
+  border-radius: 50%;
+  transition: 0.8s;
+  z-index: 5;
+  padding: 0;
+  margin: 0;
+}
+
+.preloader__title {
+  width: 250px;
+  height: 18px;
+  border-radius: 3px;
+  background: #2f2f2f;
+  margin: 0 0 0 14px;
+  padding: 0;
+}
+
+.preloader__time {
+  width: 52px;
+  height: 18px;
+  border-radius: 3px;
+  background: #2f2f2f;
+  margin: 0 14px 0 0;
+  padding: 0;
+}
+
+.preloader__button-more {
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #424242;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  box-shadow: none;
+  cursor: pointer;
+  transition: 0.8s;
+  margin: 50px auto 80px auto;
+  padding: 0;
+}
+
+@media screen and (max-width: 960px) {
+  .preloader__img {
+    width: 339px;
+    height: 190px;
+  }
+
+  .preloader__title {
+    width: 220px;
+    margin: 0 auto 0 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .preloader__img {
+    width: 300px;
+    height: 168px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .preloader__button-more {
+    width: 260px;
+  }
+}

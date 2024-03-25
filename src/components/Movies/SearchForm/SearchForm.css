@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   border-bottom: #424242 1px solid;
-  margin: 0 auto 10px auto;
+  margin: 40px auto 0 auto;
   padding: 0 0 0 0;
 }
 
@@ -15,7 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 80px 20px 0 20px;
+  margin: 0;
   padding: 0;
 }
 
@@ -28,9 +28,9 @@
   outline: none;
   box-shadow: none;
   color: #fff;
-  text-align: right;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
-  font-size: 11px;
+  text-align: left;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -42,23 +42,11 @@
   color: #8b8b8b;
   text-align: left;
   font-feature-settings: 'clig' off, 'liga' off;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 18px;
-  padding: 0;
-}
-
-.search-form__span{
-  color: #ee3465;
-  font-family: "Inter", Helvetica, Arial, sans-serif;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  display: inline-block;
-  margin: 10px auto 70px 0;
   padding: 0;
 }
 
@@ -88,7 +76,31 @@
   opacity: 0.7;
 }
 
-@media screen and (max-width: 750px) {
+.search-form__settings {
+  width: 100%;
+  max-width: 1140px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px auto 25px auto;
+  padding: 0;
+}
+
+.search-form__span {
+  width: 150px;
+  height: 11px;
+  display: block;
+  color: #ee3465;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
   .search-form__input {
     height: 44px;
   }
@@ -97,5 +109,15 @@
 @media screen and (max-width: 600px) {
   .search-form__input {
     padding: 0 10px 0 10px;
+  }
+
+  .search-form__settings {
+    flex-direction: column;
+    justify-content: center;
+    margin: 8px auto 25px auto;
+  }
+
+  .search-form__span {
+    margin: 0 auto 20px 0;
   }
 }

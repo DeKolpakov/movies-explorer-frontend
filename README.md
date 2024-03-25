@@ -21,7 +21,7 @@
 </a>
 
 <a name="description"><h2>1. Описание проекта</h2></a>
-Проект "Movies Explorer" – это инновационное приложение, разработанное для удобного поиска и просмотра фильмов, представленных на международном фестивале документального кино <a href="https://beatfilmfestival.ru/">"Beat Film Festival"</a>. Создан в рамках образовательной программы от <a href="https://practicum.yandex.ru/">Яндекс Практикума</a>, этот дипломный проект представляет собой отзывчивое и адаптивное веб-приложение (SPA). Фронтенд, основанный на библиотеке "React", обеспечивает плавный и интерактивный пользовательский опыт, а бекенд, построенный на "Express", гарантирует надежность и эффективность обработки запросов.
+Проект "Movies Explorer" – это приложение, разработанное для удобного поиска и просмотра фильмов, представленных на международном фестивале документального кино <a href="https://beatfilmfestival.ru/">"Beat Film Festival"</a>. Создан в рамках образовательной программы от <a href="https://practicum.yandex.ru/">Яндекс Практикума</a>, этот дипломный проект представляет собой отзывчивое и адаптивное веб-приложение (SPA). Фронтенд, основанный на "React", обеспечивает плавный и интерактивный пользовательский опыт, а бекенд, построенный на "Express", гарантирует надежность и эффективность обработки запросов.
 
 <h3>Ссылки на проект:</h3>
 <b>IP:</b> 84.201.131.226
@@ -35,15 +35,15 @@
 <a name="tech"><h2>2. Стек технологий</h2></a>
 
 <div align="center">
-<img width="20" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png" alt="HTML" title="HTML"/>
+<img width="50" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png" alt="HTML" title="HTML"/>
 
-<img width="20" src="https://user-images.githubusercontent.com/25181517/192158956-48192682-23d5-4bfc-9dfb-6511ade346bc.png" alt="Sass" title="Sass"/>
+<img width="50" src="https://user-images.githubusercontent.com/25181517/192158956-48192682-23d5-4bfc-9dfb-6511ade346bc.png" alt="Sass" title="Sass"/>
 
-<img width="20" src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png" alt="JavaScript" title="JavaScript"/>
+<img width="50" src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png" alt="JavaScript" title="JavaScript"/>
 
-<img width="20" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React"/>
+<img width="50" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React"/>
 
-<img width="20" src="https://user-images.githubusercontent.com/25181517/182884177-d48a8579-2cd0-447a-b9a6-ffc7cb02560e.png" alt="mongoDB" title="mongoDB"/>
+<img width="50" src="https://user-images.githubusercontent.com/25181517/182884177-d48a8579-2cd0-447a-b9a6-ffc7cb02560e.png" alt="mongoDB" title="mongoDB"/>
 </div>
 
 <a name="test"><h2>3. Установка и запуск приложения для тестирования</h2></a>
@@ -63,7 +63,7 @@
 
 <a name="tasks"><h2>5. Задачи</h2></a>
 
-Задачи проэкта были разделены на 3 этапа:
+Задачи проекта были разделены на 3 этапа:
 
 1. Верстка и JSX (чек-лист https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/checklist_jsx_diplom.pdf)
 2. Функциональность на «React» и JS (чек-лист https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/checklist_react_diplom.pdf)
@@ -71,13 +71,15 @@
 
 <a name="version"><h2>6. Версии приложения</h2></a>
 
-- <b>v 1.1 Оптимизация UX</b> Были добалены карточки сообщений и ошибок. Так же составлены и пройдены UX-тестыБ в ходе которых были выявленны неудобства при использовании приложения на мобильных устройствах.
+- <b>v 1.1 Оптимизация UX</b> Были добалены карточки сообщений и ошибок. Так же составлены и пройдены UX-тесты в ходе которых были выявленны неудобства при использовании приложения на мобильных устройствах.
 - <b>v 1.2 Оптимизация UI</b> Были оптимизированны шрифты, цвета и валидация.
+
 - <b>v 1.3 SASS (SCSS)</b> --В процессе
-- <b>v 1.4 Добавление светлой темы</b> --В процессе
-- <b>v 1.5 Оптимизация лишних запросов</b> --В процессе
+- <b>v 1.4 Добавление светлой темы</b> --В очереди
+- <b>v 1.5 Оптимизация лишних запросов</b> --В очереди
 
 <div align="center">
+  <h3 align="center">Изменения UX/UI</h3>
   <a href="https://movie.dekolpakov.nomoredomainsmonster.ru">
     <img width="550" alt="Карточки сообщений" src="./src/images/readme2.png">
   </a>
